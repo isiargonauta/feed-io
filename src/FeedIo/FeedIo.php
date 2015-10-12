@@ -143,7 +143,7 @@ class FeedIo
      * @param  \FeedIo\StandardAbstract $standard
      * @return $this
      */
-    public function addStandard(string $name, StandardAbstract $standard): FeedIo
+    public function addStandard(\string $name, StandardAbstract $standard): FeedIo
     {
         $name = strtolower($name);
         $this->standards[$name] = $standard;
