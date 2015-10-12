@@ -36,7 +36,7 @@ class Parser
     /**
      * @var array[FilterInterface]
      */
-    protected $filters = array();
+    protected $filters = [];
 
     /**
      * @var StandardAbstract
@@ -56,7 +56,7 @@ class Parser
     /**
      * @return StandardAbstract
      */
-    public function getStandard()
+    public function getStandard(): StandardAbstract
     {
         return $this->standard;
     }
@@ -65,7 +65,7 @@ class Parser
      * @param $tagName
      * @return bool
      */
-    public function isItem($tagName)
+    public function isItem(\string $tagName): \bool
     {
         return (strtolower($this->standard->getItemNodeName()) === strtolower($tagName));
     }
@@ -74,7 +74,7 @@ class Parser
      * @param  FilterInterface $filter
      * @return $this
      */
-    public function addFilter(FilterInterface $filter)
+    public function addFilter(FilterInterface $filter): Parser
     {
         $this->filters[] = $filter;
 
@@ -88,7 +88,7 @@ class Parser
      * @throws Parser\MissingFieldsException
      * @throws Parser\UnsupportedFormatException
      */
-    public function parse(DOMDocument $document, FeedInterface $feed)
+    public function parse(DOMDocument $document, FeedInterface $feed): FeedInterface
     {
         if (!$this->standard->canHandle($document)) {
             throw new UnsupportedFormatException('this is not a supported format');
@@ -108,7 +108,7 @@ class Parser
      * @return $this
      * @throws MissingFieldsException
      */
-    public function checkBodyStructure(DOMDocument $document, array $mandatoryFields)
+    public function checkBodyStructure(DOMDocument $document, array $mandatoryFields): Parser
     {
         $errors = array();
 
@@ -135,7 +135,7 @@ class Parser
      * @param  RuleSet       $ruleSet
      * @return NodeInterface
      */
-    public function parseNode(NodeInterface $item, \DOMElement $element, RuleSet $ruleSet)
+    public function parseNode(NodeInterface $item, \DOMElement $element, RuleSet $ruleSet): NodeInterface
     {
         foreach ($element->childNodes as $node) {
             if ($node instanceof \DOMElement) {
@@ -157,7 +157,7 @@ class Parser
      * @param  NodeInterface $item
      * @return $this
      */
-    public function addValidItem(FeedInterface $feed, NodeInterface $item)
+    public function addValidItem(FeedInterface $feed, NodeInterface $item): Parser
     {
         if ($item instanceof ItemInterface && $this->isValid($item)) {
             $feed->add($item);
@@ -170,7 +170,7 @@ class Parser
      * @param  ItemInterface $item
      * @return bool
      */
-    public function isValid(ItemInterface $item)
+    public function isValid(ItemInterface $item): \bool
     {
         foreach ($this->filters as $filter) {
             if (!$filter->isValid($item)) {

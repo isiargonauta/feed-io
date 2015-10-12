@@ -88,7 +88,7 @@ class Feed extends Node implements FeedInterface
      * @param  ItemInterface $item
      * @return $this
      */
-    public function add(ItemInterface $item)
+    public function add(ItemInterface $item): FeedInterface
     {
         $this->items->append($item);
 
@@ -98,7 +98,7 @@ class Feed extends Node implements FeedInterface
     /**
      * @return ItemInterface
      */
-    public function newItem()
+    public function newItem(): ItemInterface
     {
         return new Item();
     }
