@@ -12,7 +12,6 @@ namespace FeedIo;
 
 use FeedIo\Reader;
 use FeedIo\Reader\FixerSet;
-use FeedIo\Reader\Result;
 use FeedIo\Reader\FixerAbstract;
 use FeedIo\Rule\DateTimeBuilder;
 use FeedIo\Adapter\ClientInterface;
@@ -235,7 +234,7 @@ class FeedIo
      * @param  \DateTime             $modifiedSince
      * @return \FeedIo\Reader\Result
      */
-    public function read(string $url, FeedInterface $feed = null, \DateTime $modifiedSince = null): Result
+    public function read(\string $url, FeedInterface $feed = null, \DateTime $modifiedSince = null): \FeedIo\Reader\Result
     {
         if (is_null($feed)) {
             $feed = new Feed();
@@ -254,7 +253,7 @@ class FeedIo
      * @param  \DateTime             $modifiedSince
      * @return \FeedIo\Reader\Result
      */
-    public function readSince(string $url, \DateTime $modifiedSince): Result
+    public function readSince(\string $url, \DateTime $modifiedSince): \FeedIo\Reader\Result
     {
         return $this->read($url, new Feed(), $modifiedSince);
     }
@@ -264,7 +263,7 @@ class FeedIo
      * @param  string        $standard Standard's name
      * @return \DomDocument
      */
-    public function format(FeedInterface $feed, string $standard): \DomDocument
+    public function format(FeedInterface $feed, \string $standard): \DomDocument
     {
         $this->logAction($feed, "formatting a %s in $standard format");
 
@@ -296,7 +295,7 @@ class FeedIo
      * @return \FeedIo\StandardAbstract
      * @throws \OutOfBoundsException
      */
-    public function getStandard(string $name): StandardAbstract
+    public function getStandard(\string $name): StandardAbstract
     {
         $name = strtolower($name);
         if (array_key_exists($name, $this->standards)) {
@@ -311,7 +310,7 @@ class FeedIo
      * @param  string                $message
      * @return $this
      */
-    protected function logAction(FeedInterface $feed, string $message): FeedIo
+    protected function logAction(FeedInterface $feed, \string $message): FeedIo
     {
         $class = get_class($feed);
         $this->logger->debug(sprintf($message, $class));
